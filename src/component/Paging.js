@@ -3,11 +3,24 @@ import { Pagination } from 'react-bootstrap';
 import { PaginationContext } from '../context/context'
 function Paging() {
     const {state, dispatch} = useContext(PaginationContext)
+    
+    const totalallPage = Math.ceil(state.data.length/ state.dataPerPage) 
+    const arrayPage = []
+    if(state.data.length === 0 )
+    {
+        arrayPage.push(1)
+    }
+    else {
+        for (let index = 1; index <= totalallPage; index++) {
+            arrayPage.push(index)
+        }
+    }
+    
     return (
 		<div style={{display :"flex", justifyContent: "space-between"}}>
 			<Pagination size="sm">
                 {
-                    state.numberPage.map( x => {
+                    arrayPage.map( x => {
                         let propsObj = {
                             active : false,
                             onClick : () => {

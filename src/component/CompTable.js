@@ -9,10 +9,12 @@ function CompTable() {
 	const indexLast = state.currentPage * state.dataPerPage
 	const indexFirst = indexLast - state.dataPerPage
 	const currentData = state.data.slice(indexFirst,indexLast)
-
+	let numbering = indexFirst
     return (
 		<div>
-			<Table className="text-center" striped bordered hover size="sm">
+			{console.log("comptable")}
+			<Table className="text-center" striped bordered hover size="sm" responsive>
+			
 				<thead >
 					<tr>
 						<th>id</th>
@@ -25,20 +27,23 @@ function CompTable() {
 					</tr>
 				</thead>
 				<tbody>
-					{console.log("comptable")}
+					
 					{ 
-					currentData.map(x => {
-
+					currentData.map(user => {
+						numbering +=1
 						return(
-							<tr key={x.id}>
-								<td> {x.id} </td>
-								<td> {x.name} </td>
-								<td> {x.username} </td>
-								<td> {x.email} </td>
-								<td> {x.phone} </td>
-								<td> {x.website} </td>
+							<tr key={user.id}>
+								<td> {numbering} </td>
+								<td> {user.name} </td>
+								<td> {user.username} </td>
+								<td> {user.email} </td>
+								<td> {user.phone} </td>
+								<td> {user.website} </td>
 								<td style={{ display: "flex", justifyContent: "space-around"}}> 
-									<Button variant="danger"> delete </Button>
+									<Button variant="danger" onClick={()=> dispatch( {
+										type: "deleteData",
+										payload : user
+									})}> delete </Button>
 									<Button varian="primary"> edit </Button>
 								</td>
 							</tr>
